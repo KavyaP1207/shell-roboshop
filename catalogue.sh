@@ -65,7 +65,7 @@ npm install &>>$LOG_FILE
 VALIDATE $? "install dependies"
 
 
-cp $SCRIPT_DIR catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "copy sys services "
 
 systemctl daemon-reload
