@@ -57,6 +57,7 @@ VALIDATE $? "changing to app dir"
 
 rm -rf /app/*
 VALIDATE $? "removing existing code"
+
 unzip /tmp/catalogue.zip &>>$LOG_FILE
 VALIDATE $? "unzip catalogue "
 
@@ -70,6 +71,8 @@ VALIDATE $? "copy sys services "
 systemctl daemon-reload
 systemctl enable catalogue &>>$LOG_FILE
 VALIDATE $? "enabling catalogue" 
+
+
 cp $SCRIPT_DIR/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "copy mongo repo"
 
