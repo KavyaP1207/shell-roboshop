@@ -48,19 +48,22 @@ VALIDATE $? "dowloading shipping applications "
 cd /app 
 VALIDATE $? "changing to app dir"
 
+rm -rf /app/*
+VALIDATE $? "removing existing code"
+
+unzip /tmp/shipping.zip &>>$LOG_FILE
+VALIDATE $? "unzip shipping "
 
 mvn clean package &>>$LOG_FILE
-mv $SCRIPT_DIR/target/shipping-1.0.jar shipping.jar 
+mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
-
 systemctl daemon-reload &>>$LOG_FILE
-
 systemctl enable shipping  &>>$LOG_FILE
 
 
 dnf install mysql -y 
-VALIDATE $? "installed mysql"
+
 mysql -h mysql.daws88s.sbs -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
 if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
