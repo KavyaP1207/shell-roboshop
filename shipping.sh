@@ -50,18 +50,18 @@ VALIDATE $? "changing to app dir"
 
 
 mvn clean package &>>$LOG_FILE
-ALIDATE $? "mvn cleaned"
+VALIDATE $? "mvn cleaned"
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
-vALIDATE $? "copied "
+VALIDATE $? "copied "
 systemctl daemon-reload &>>$LOG_FILE
 
 systemctl enable shipping  &>>$LOG_FILE
-vALIDATE $? "enabled"
+VALIDATE $? "enabled"
 
 dnf install mysql -y 
-vALIDATE $? "installed mysql"
+VALIDATE $? "installed mysql"
 mysql -h mysql.daws88s.sbs -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
 if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
@@ -71,4 +71,4 @@ else
     echo -e "shipping data already loaded $Y skipping $N"
 
 systemctl restart shipping
-vALIDATE $? "restarted shipping"
+VALIDATE $? "restarted shipping"
