@@ -31,7 +31,8 @@ VALIDATE(){ #functions receive inputs through args just like shell script args
 }
 
 dnf install maven -y &>>$LOG_FILE
-
+ 
+id roboshop
 if [ $? -ne 0 ]; then 
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATE $? "system user "
@@ -55,6 +56,7 @@ unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATE $? "unzip shipping "
 
 mvn clean package
+VALIDATE $? "cleaned all packages"
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
