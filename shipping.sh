@@ -54,7 +54,7 @@ VALIDATE $? "removing existing code"
 unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATE $? "unzip shipping "
 
-mvn clean package &>>$LOG_FILE
+mvn clean package
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
@@ -64,7 +64,7 @@ systemctl enable shipping  &>>$LOG_FILE
 
 dnf install mysql -y 
 
-mysql -h mysql.daws88s.sbs -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
+mysql -h $MYSQL_HOST -uroot -pRoboShop@1 -e 'use cities' &>>$LOG_FILE
 if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql &>>$LOG_FILE
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql &>>$LOG_FILE
