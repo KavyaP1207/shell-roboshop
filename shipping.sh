@@ -50,7 +50,7 @@ VALIDATE $? "changing to app dir"
 
 
 mvn clean package &>>$LOG_FILE
-mv target/shipping-1.0.jar shipping.jar 
+mv $SCRIPT_DIR/target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
 
@@ -70,4 +70,3 @@ else
     echo -e "shipping data already loaded $Y skipping $N"
 
 systemctl restart shipping
-VALIDATE $? "restarted shipping"
