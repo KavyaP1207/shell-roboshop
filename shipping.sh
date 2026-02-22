@@ -50,15 +50,14 @@ VALIDATE $? "changing to app dir"
 
 
 mvn clean package &>>$LOG_FILE
-VALIDATE $? "mvn cleaned"
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
-VALIDATE $? "copied "
+
 systemctl daemon-reload &>>$LOG_FILE
 
 systemctl enable shipping  &>>$LOG_FILE
-VALIDATE $? "enabled"
+
 
 dnf install mysql -y 
 VALIDATE $? "installed mysql"
