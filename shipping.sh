@@ -56,7 +56,6 @@ unzip /tmp/shipping.zip &>>$LOG_FILE
 VALIDATE $? "unzip shipping "
 
 mvn clean package
-VALIDATE $? "cleaned all packages"
 mv target/shipping-1.0.jar shipping.jar 
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service

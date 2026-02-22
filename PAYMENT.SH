@@ -31,7 +31,7 @@ VALIDATE(){ #functions receive inputs through args just like shell script args
 }
 
 dnf install python3 gcc python3-devel -y &>>$LOG_FILE
-
+id roboshop
 if [ $? -ne 0 ]; then 
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOG_FILE
     VALIDATE $? "system user "
@@ -63,4 +63,4 @@ VALIDATE $? "copy sys services "
 systemctl daemon-reload &>>$LOG_FILE
 
 systemctl enable payment  &>>$LOG_FILE
-systemctl start payment  &>>$LOG_FILE
+systemctl restart payment  &>>$LOG_FILE
