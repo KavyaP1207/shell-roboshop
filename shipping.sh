@@ -71,5 +71,5 @@ if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/master-data.sql &>>$LOG_FILE
 else
     echo -e "shipping data already loaded $Y skipping $N"
-
+fi
 systemctl restart shipping
